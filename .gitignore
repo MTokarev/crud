@@ -19,3 +19,6 @@ msbuild.wrn
 
 # Migrations
 .Migrations/
+
+# Database
+app.db*
