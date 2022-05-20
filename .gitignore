@@ -33,7 +33,7 @@ app.db*
 /bazel-out
 
 # Node
-/client/node_modules
+client/node_modules
 client/npm-debug.log
 client/yarn-error.log
 

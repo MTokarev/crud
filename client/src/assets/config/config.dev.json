@@ -1,0 +1,10 @@
+{
+  "Urls": {
+    "base": "https://localhost:7155/",
+    "employeeGet": "Employee/Get"
+  },
+
+  "Pagination": {
+    "defaultPageSize": 10
+  }
+}

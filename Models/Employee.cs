@@ -16,6 +16,8 @@ namespace crud.Models
         /// <summary>
         /// Employee name
         /// </summary>
+        [Required]
+        [MaxLength(255)]
         public string Name { get; set; }
         
         /// <summary>

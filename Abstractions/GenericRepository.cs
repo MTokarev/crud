@@ -1,4 +1,5 @@
 ﻿using crud.Data;
+using crud.Models;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -48,6 +49,22 @@ namespace crud.Abstractions
         public void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await _context.Set<T>().CountAsync();
+        }
+
+        public async Task<Pagination<T>> GetPagedEmployeesAsync(int pageIndex, int pageSize, int pageSizeMaxAllowed, int totalEmployees)
+        {
+            var result = await _context
+                .Set<T>()
+                .Skip(pageSize * (pageIndex - 1))
+                .Take(pageSize)
+                .ToListAsync();
+            
+            return new Pagination<T>(pageIndex, pageSize, pageSizeMaxAllowed, totalEmployees, result);
         }
 
         public void Dispose()

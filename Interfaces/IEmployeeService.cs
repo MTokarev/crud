@@ -10,5 +10,7 @@ namespace crud.Interfaces
         Task<Response<EmployeeDto>> UpdateAsync(EmployeeDto employeeDto);
         Task<Response<EmployeeDto>> CreateAsync(EmployeeDto employeeDto);
         Task<Response<EmployeeDto>> DeleteByIdAsync(int id);
+        Task<int> TotalEmployees();
+        Task<Response<Pagination<EmployeeDto>>> GetPagedEmployeesAsync(PageParams pageParams);
     }
 }

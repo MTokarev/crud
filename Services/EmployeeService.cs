@@ -5,6 +5,9 @@ using crud.DTOs;
 using crud.Enums;
 using crud.Interfaces;
 using crud.Models;
+using crud.Options;
+
+using Microsoft.Extensions.Options;
 
 namespace crud.Services
 {
@@ -12,11 +15,13 @@ namespace crud.Services
     {
         private readonly IMapper _mapper;
         private readonly UnitOfWork _unitOfWork;
+        private readonly PaginationOptions _paginationOptions;
 
-        public EmployeeService(IMapper mapper, UnitOfWork unitOfWork)
+        public EmployeeService(IMapper mapper, UnitOfWork unitOfWork, IOptions<PaginationOptions> paginationOptions)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
+            _paginationOptions = paginationOptions.Value;
         }
 
         public async Task<Response<IList<EmployeeDto>>> GetAllAsync()
@@ -163,7 +168,60 @@ namespace crud.Services
             return response;
         }
 
+        public async Task<Response<Pagination<EmployeeDto>>> GetPagedEmployeesAsync(PageParams pageParams)
+        {
+
+            // Apply default params from config if values are incorrect
+            pageParams.PageSize = pageParams.PageSize > 0 && pageParams.PageSize <= _paginationOptions.MaxPageSize?
+                pageParams.PageSize :
+                _paginationOptions.DefaultPageSize; 
+
+            pageParams.PageIndex = pageParams.PageIndex > 0 ?
+                pageParams.PageIndex :
+            _paginationOptions.DefaultPageIndex;
+
+            // Check if pageSize is bigger than total employees in DB
+            int totalEmployees = await _unitOfWork.EmployeeRepository.CountAsync();
+            pageParams.PageSize = pageParams.PageSize > totalEmployees ?
+                totalEmployees :
+                pageParams.PageSize;
+
+            // Check how many pages available in DB based on requested page size
+            // Round result using ceiling to include items on the last page
+            int pagesCount = (int)Math.Ceiling((decimal)totalEmployees / (decimal)pageParams.PageSize);
+            
+            var response = new Response<Pagination<EmployeeDto>>();
+
+            // If requested page index is out of bound return error
+            if (pageParams.PageIndex > pagesCount)
+            {
+                response.Error = new Error()
+                {
+                    ErrorType = ResponseErrorTypes.NotFound,
+                    Message = $"Requested page is out of bound. {nameof(totalEmployees)}: '{totalEmployees}', {nameof(pageParams.PageIndex)}: '{pageParams.PageIndex}', {nameof(pageParams.PageSize)}: '{pageParams.PageSize}'."
+                };
+            }
+            else
+            // Otherwise create and return paginated result
+            {
+                var pagedEmployees = await _unitOfWork
+                    .EmployeeRepository
+                    .GetPagedEmployeesAsync(pageParams.PageIndex, pageParams.PageSize, _paginationOptions.MaxPageSize, totalEmployees);
+                
+                response.Data = _mapper.Map<Pagination<EmployeeDto>>(pagedEmployees);
+                response.Message = $"Paged result has been generated for {nameof(pageParams.PageIndex)}: '{pageParams.PageIndex}'. Employees returned: '{pagedEmployees.TotalItems}'.";
+            }
+
+            return response;
+        }
+
+        public Task<int> TotalEmployees()
+        {
+            return _unitOfWork.EmployeeRepository.CountAsync();
+        }
+
         private async Task<Employee> GetEmployeeByIdAsync(int id) => 
             await _unitOfWork.EmployeeRepository.GetByIdAsync(id);
+
     }
 }

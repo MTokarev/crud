@@ -2,8 +2,10 @@
 using crud.Enums;
 using crud.Interfaces;
 using crud.Models;
+using crud.Options;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace crud.Controllers
 {
@@ -22,15 +24,15 @@ namespace crud.Controllers
         }
 
         /// <summary>
-        /// Returns all employees
+        /// Returns all employees in paginated result
         /// </summary>
         /// <returns>Return a list of employees DTO</returns>
         [HttpGet]
         [Route("Get")]
-        public async Task<IActionResult> GetAllEmployees()
+        public async Task<IActionResult> GetAllEmployees([FromQuery] PageParams pageParams)
         {
-            var response = await _employeeService.GetAllAsync();
-
+            var response = await _employeeService.GetPagedEmployeesAsync(pageParams);
+            
             return this.GenerateResponse(response);
         }
 
@@ -57,9 +59,6 @@ namespace crud.Controllers
         [Route("Update")]
         public async Task<IActionResult> UpdateEmployeeAsync(EmployeeDto employeeDto)
         {
-            if (employeeDto == null)
-                return BadRequest($"Please provide a valid {nameof(employeeDto)}.");
-
             var response = await _employeeService.UpdateAsync(employeeDto);
 
             return this.GenerateResponse(response);
@@ -83,7 +82,7 @@ namespace crud.Controllers
                    BadRequest(response.Error.Message);
             }
 
-            // This will return HTTP 201 using 'Route Get/{id}' and created object
+            // Returns HTTP 201 using 'Route Get/{id}' and created object
             return CreatedAtRoute(response.Data.Id, response.Data);
 
         }
