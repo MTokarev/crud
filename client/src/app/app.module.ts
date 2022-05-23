@@ -8,6 +8,13 @@ import { EmployeeService } from './services/employee.service';
 import { NavbarComponent } from './navbar/navbar.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { AppRoutingModule } from './app-routing.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NewEmployeeFormComponent } from './employees/new-employee-form/new-employee-form.component';
+import { FormsModule } from '@angular/forms';
+import { ModalComponent } from './modal/modal.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './home/home.component';
 
 export function initializeApp(configLoader: ConfigLoader){
   return () => configLoader.load();
@@ -17,12 +24,19 @@ export function initializeApp(configLoader: ConfigLoader){
   declarations: [
     AppComponent,
     NavbarComponent,
-    EmployeesComponent
+    EmployeesComponent,
+    NewEmployeeFormComponent,
+    ModalComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FontAwesomeModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     EmployeeService,

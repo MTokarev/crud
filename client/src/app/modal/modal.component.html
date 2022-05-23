@@ -1,0 +1,23 @@
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display': this.displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{ this.modalTitle }}</h4>
+      </div>
+      <div class="modal-body">
+        <p>{{ this.modalMessage }}</p>
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="!this.hasError" [routerLink]="['/']" class="btn btn-warning">Back to home</button>
+        <button [ngClass]="this.hasError ? 'btn-danger': 'btn-success'" type="button" class="btn" 
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

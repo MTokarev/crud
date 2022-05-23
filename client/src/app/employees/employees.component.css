@@ -1,0 +1,16 @@
+td a {
+  color: white;
+}
+
+
+a {
+  color: black;
+  text-decoration: none;
+  margin-left: 5px;
+  font-size: large;
+}
+
+.inactive {
+  pointer-events: none;
+  color: bisque;
+}

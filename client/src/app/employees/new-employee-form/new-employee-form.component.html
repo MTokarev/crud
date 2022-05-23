@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div id="user-data">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input #name="ngModel" ngModel name="name" required type="text" id="name" class="form-control">
+            <label *ngIf="name.touched && name.invalid">Name must have at least one character</label>
+          </div>
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input #age="ngModel" ngModel name="age" type="number" min="3" max="200" id="age" required class="form-control">
+            <label *ngIf="age.touched && age.invalid">Age must be greater than 18</label>
+          </div>
+        </div>
+        <hr>
+        <button [disabled]="!f.valid" class="btn btn-success" type="submit">Create</button>
+        <button [routerLink]="['/']" style="margin-left: 5px;" class="btn btn-warning" type="submit">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-modal 
+  [displayStyle]="this.displayStyle"
+  [modalTitle]="this.modalTitle"
+  [modalMessage]="this.modalMessage"
+  [hasError]="this.hasError"
+  (modalClosed)="onModalClosed()">
+</app-modal>

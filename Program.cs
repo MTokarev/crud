@@ -58,7 +58,10 @@ builder.Services.AddCors(options =>
         policy =>
         {
             string[] corsUris = builder.Configuration.GetSection("CorsUris").Get<string[]>();
-            policy.WithOrigins(corsUris);
+            policy
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins(corsUris);
         });
 });
 

@@ -1,7 +1,10 @@
 {
   "Urls": {
     "base": "https://localhost:7155/",
-    "employeeGet": "Employee/Get"
+    "employeeGet": "Employee/Get",
+    "employeeDelete": "Employee/Delete",
+    "employeeCreate": "Employee/Create",
+    "employeeUpdate": "Employee/Update"
   },
 
   "Pagination": {

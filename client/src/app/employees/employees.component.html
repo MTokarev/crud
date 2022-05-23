@@ -5,21 +5,32 @@
         <th scope="col">Id</th>
         <th scope="col">Name</th>
         <th scope="col">Age</th>
+        <th scope="col">Delete</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let employee of this.employees?.data">
-        <td> {{ employee.id }} </td>
-        <td> {{ employee.name }} </td>
-        <td> {{ employee.age }} </td>
+        <td>{{ employee.id }}</td>
+        <td><input #inputName (focusout)="onFocusOut({id: employee.id, name: inputName.value, age: +inputAge.value})" type="text" minlength="1" value="{{ employee.name }}"></td>
+        <td><input #inputAge (focusout)="onFocusOut({id: employee.id, name: inputName.value, age: +inputAge.value})" type="number" value="{{ employee.age }}"></td>
+        <td><a (click)="this.deleteEmployee(employee.id)" style="cursor: pointer;"><i class="fa fa-times" aria-hidden="true"></i></a></td>
       </tr>
     </tbody>
   </table>
-  <nav aria-label="...">
+  <nav *ngIf="this.employees.totalPages > 1" aria-label="...">
     <ul class="pagination pagination-sm">
-      <li class="page-item"><a class="page-link bg-dark" href="#">2</a></li>
+      <li class="page-item">
+        <a [class.inactive]="this.employees.pageIndex - 1 == 0" [routerLink]="['/employees', this.employees.pageIndex - 1]">
+          <i class="fa fa-arrow-left"></i>
+        </a>
+      </li>
+      <li class="page-item">
+        <a  [class.inactive]="this.employees.pageIndex + 1 > this.employees.totalPages"
+            [routerLink]="['/employees', this.employees.pageIndex + 1]"
+            >
+          <i class="fa fa-arrow-right"></i>
+        </a>
+      </li>
     </ul>
   </nav>
 </div>
-
-

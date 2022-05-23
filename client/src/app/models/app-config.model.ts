@@ -1,7 +1,10 @@
 export class AppConfig {
   Urls = {
     base: '',
-    employeeGet: ''
+    employeeGet: '',
+    employeeDelete: '',
+    employeeCreate: '',
+    employeeUpdate: ''
   }
 
   Pagination = {
