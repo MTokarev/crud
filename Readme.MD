@@ -2,6 +2,9 @@
 
 CRUD project for future references. Project implies few technics that not so beneficial in small project like current implementation, but could bring benefits in bigger implementation.
 
+#Demo
+![demo](./crud.gif)
+
 # What used
 
 Stack includes:
@@ -28,7 +31,7 @@ Features:
 
 ## How to run
 To run backend navigate to the project folder and run `dotnet run`.
-To start front end run `ng serve` from `\client` folder.
+To start front end run `npm install` and then `ng serve` from `\client` folder.
 
 **Note:** Please make sure that `baseUrl` in `\client\src\assets\config\config.dev.json` is equal backend URL.
 
