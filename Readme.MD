@@ -37,7 +37,6 @@ To start front end run `npm install` and then `ng serve` from `\client` folder.
 
 TODOs:
 - Error controller
-- Add front-end
 - Unit tests
 - Switch form from template driven to reactive
 - Add search
