@@ -1,11 +1,14 @@
-﻿# Overview
+﻿# Overview 🔍
 
-CRUD project for future references. Project implies few technics that not so beneficial in small project like current implementation, but could bring benefits in bigger implementation.
+Yet another CRUD (Create Read Update Delete) project.
+This project can be used as a base to develop an app on top of it. Project implies few technics that makes current implementation more extensible than other available CRUD projects I found in the internet.
 
-# Demo
+# Demo 📺
+By default we have an employee entity that has representation in database.
+Backend returns paginated data to the FrontEnd where the response renders as editable table.
 ![demo](./crud.gif)
 
-# What used
+# What used 🛠️
 
 Stack includes:
 - .Net6 as backend.
@@ -29,7 +32,7 @@ Features:
 - Two ways component communication.
 - Paginated response
 
-## How to run
+## How to run 🏃‍♀️
 To run backend navigate to the project folder and run `dotnet run`.
 To start front end run `npm install` and then `ng serve` from `\client` folder.
 
