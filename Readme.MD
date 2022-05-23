@@ -2,7 +2,7 @@
 
 CRUD project for future references. Project implies few technics that not so beneficial in small project like current implementation, but could bring benefits in bigger implementation.
 
-#Demo
+# Demo
 ![demo](./crud.gif)
 
 # What used
