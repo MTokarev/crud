@@ -1,7 +1,7 @@
 ﻿# Overview 🔍
 
 Yet another CRUD (Create Read Update Delete) project.
-This project can be used as a base to develop an app on top of it. Project implies few technics that makes current implementation more extensible than other available CRUD projects I found in the internet.
+It can be used as a base to develop an app on top of it. Project implies few technics that makes current implementation more extensible than other available CRUD projects I found in the internet.
 
 # Demo 📺
 By default we have an employee entity that has representation in database.
@@ -41,6 +41,6 @@ To start front end run `npm install` and then `ng serve` from `\client` folder.
 TODOs:
 - Error controller
 - Unit tests
-- Switch form from template driven to reactive
+- Done ~~Switch form from template driven to reactive~~
 - Add search
 - Add sorting

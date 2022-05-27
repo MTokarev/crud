@@ -39,7 +39,7 @@ export class EmployeeService {
             this.employees = response;
             this.employeesChanged.next(response);
           },
-          error: (error) => this.toastr.error(error, 'Unable to get employee list')
+          error: (error) => this.toastr.error(JSON.stringify(error.message), 'Unable to get employee list')
         }
       )
   }

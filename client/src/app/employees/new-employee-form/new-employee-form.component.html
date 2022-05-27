@@ -1,21 +1,17 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-        <div id="user-data">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input #name="ngModel" ngModel name="name" required type="text" id="name" class="form-control">
-            <label *ngIf="name.touched && name.invalid">Name must have at least one character</label>
-          </div>
-          <div class="form-group">
-            <label for="age">Age</label>
-            <input #age="ngModel" ngModel name="age" type="number" min="18" max="200" id="age" required class="form-control">
-            <label *ngIf="age.touched && age.invalid">Age must be greater than 18</label>
-          </div>
-        </div>
+      <form (ngSubmit)="onSubmit()" [formGroup]="this.newEmployeeForm">
+        <label for="name">Name</label>
+        <input formControlName="name" name="name" required type="text" class="form-control">
+        <label *ngIf="this.newEmployeeForm.controls['name'].touched && this.newEmployeeForm.controls['name'].invalid">Name must have at least one character</label>
+        
+        <label for="age">Age</label>
+        <input formControlName="age" name="age" type="number" class="form-control">
+        <label *ngIf="this.newEmployeeForm.controls['age'].touched && this.newEmployeeForm.controls['age'].invalid">Age must be greater than 18</label>
+        
         <hr>
-        <button [disabled]="!f.valid" class="btn btn-success" type="submit">Create</button>
+        <button [disabled]="!this.newEmployeeForm.valid" class="btn btn-success" type="submit">Create</button>
         <button [routerLink]="['/']" style="margin-left: 5px;" class="btn btn-warning" type="submit">Cancel</button>
       </form>
     </div>

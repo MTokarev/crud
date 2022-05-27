@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Employee } from 'src/app/models/employee.model';
 import { EmployeeService } from 'src/app/services/employee.service';
 
@@ -13,20 +13,28 @@ export class NewEmployeeFormComponent implements OnInit {
   public modalMessage: string = '';
   public hasError: boolean = false;
   public displayStyle = "none";
-  constructor(private employeeService: EmployeeService) { }
+  public newEmployeeForm: FormGroup;
+
+  constructor(private employeeService: EmployeeService) { 
+    this.newEmployeeForm = new FormGroup({
+      'name': new FormControl('', [Validators.required, Validators.minLength(1)]),
+      'age': new FormControl('', [Validators.required, Validators.min(18), Validators.max(200)])
+    })
+  }
 
   ngOnInit(): void {
   }
 
-  onSubmit(form: NgForm)
+  onSubmit()
   {
+    console.log(this.newEmployeeForm);
     this
       .employeeService
-      .createEmployee(<Employee>form.value)
+      .createEmployee(<Employee>this.newEmployeeForm.value)
       .subscribe(
         {
           next: (response: Employee) => {
-            form.resetForm();
+            this.newEmployeeForm.reset();
             this.hasError = false;
             this.modalTitle = "Employee has been created";
             this.modalMessage = `Id: '${response.id}', name: '${response.name}', age: '${response.age}'`;

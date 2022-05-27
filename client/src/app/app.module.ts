@@ -10,7 +10,7 @@ import { EmployeesComponent } from './employees/employees.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NewEmployeeFormComponent } from './employees/new-employee-form/new-employee-form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from './modal/modal.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,6 +35,7 @@ export function initializeApp(configLoader: ConfigLoader){
     AppRoutingModule,
     FontAwesomeModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
